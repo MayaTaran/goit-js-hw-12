@@ -1,19 +1,33 @@
-const KEY = '42649910-6a5238a097d86367028b0f975';
-const BASE_URL = "https://pixabay.com/api/";
-const PARAM = "image_type=photo&orientation=horizontal&safesearch=true";
-export function fetchData(inputWord) {
-  const formattedInput = inputWord.split(' ').join('+');
-  const LINK = `${BASE_URL}?key=${KEY}&q=${formattedInput}&${PARAM}`;
 
-  return fetch(LINK)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => data.hits)
-    .catch(error => {
-      throw new Error(`Failed to fetch data: ${error.message}`);
-    });
+import axios from 'axios'
+// const KEY = '42649910-6a5238a097d86367028b0f975';
+// const PARAM = "image_type=photo&orientation=horizontal&safesearch=true";
+
+
+export async function fetchData(inputWord) {
+  const formattedInput = inputWord.split(' ').join('+');
+  
+  const instance = axios.create({
+    baseURL: 'https://pixabay.com/api/',
+    params: {
+      q: formattedInput,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: 'true',
+      per_page:'pageQuantity',
+      key: '42649910-6a5238a097d86367028b0f975'
+    }
+  });
+
+  try {
+    const response = await instance.get();
+
+    if (response.status !== 200) {
+      throw new Error(`${response.status}`);
+    }
+
+    return response.data.hits;
+  } catch (error) {
+    throw new Error(`Failed to fetch data: ${error.message}`);
+  }
 }

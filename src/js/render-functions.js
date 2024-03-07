@@ -24,3 +24,4 @@ export function createCard({ webformatURL, largeImageURL, tags, likes, views, co
       </a>
     </li>`;
 }
+
