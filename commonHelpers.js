@@ -1,19 +1,19 @@
-import{a as g,i as d,S as p}from"./assets/vendor-5401a4b0.js";(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))o(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const a of r.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&o(a)}).observe(document,{childList:!0,subtree:!0});function s(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function o(e){if(e.ep)return;e.ep=!0;const r=s(e);fetch(e.href,r)}})();function m({webformatURL:i,largeImageURL:t,tags:s,likes:o,views:e,comments:r,downloads:a}){return`
+import{a as y,i as u,S as m}from"./assets/vendor-5401a4b0.js";(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))i(t);new MutationObserver(t=>{for(const o of t)if(o.type==="childList")for(const a of o.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&i(a)}).observe(document,{childList:!0,subtree:!0});function r(t){const o={};return t.integrity&&(o.integrity=t.integrity),t.referrerPolicy&&(o.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?o.credentials="include":t.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function i(t){if(t.ep)return;t.ep=!0;const o=r(t);fetch(t.href,o)}})();function h({webformatURL:s,largeImageURL:e,tags:r,likes:i,views:t,comments:o,downloads:a}){return`
     <li class="card">
-      <a href="${t}" data-caption="${s}">
-        <img class="card-image" src="${i}" alt="${s}" title="${s}"/>
+      <a href="${e}" data-caption="${r}">
+        <img class="card-image" src="${s}" alt="${r}" title="${r}"/>
         <ul class="discription-list">
           <li>
             <h3 class="disc-name">Likes</h3>
-            <p class="disc-value">${o}</p>
+            <p class="disc-value">${i}</p>
           </li>
           <li>
             <h3 class="disc-name">Views</h3>
-            <p class="disc-value">${e}</p>
+            <p class="disc-value">${t}</p>
           </li>
           <li>
             <h3 class="disc-name">Comments</h3>
-            <p class="disc-value">${r}</p>
+            <p class="disc-value">${o}</p>
           </li>
           <li>
             <h3 class="disc-name">Downloads</h3>
@@ -21,5 +21,5 @@ import{a as g,i as d,S as p}from"./assets/vendor-5401a4b0.js";(function(){const 
           </li>
         </ul>
       </a>
-    </li>`}async function h(i){const t=i.split(" ").join("+"),s=g.create({baseURL:"https://pixabay.com/api/",params:{q:t,image_type:"photo",orientation:"horizontal",safesearch:"true",per_page:"pageQuantity",key:"42649910-6a5238a097d86367028b0f975"}});try{const o=await s.get();if(o.status!==200)throw new Error(`${o.status}`);return o.data.hits}catch(o){throw new Error(`Failed to fetch data: ${o.message}`)}}const l=document.querySelector("form");let n;const u=document.querySelector("ul#image-list"),f=document.querySelector(".loader"),y=document.querySelector(".button-more"),b=15;let c;l.addEventListener("submit",i=>{i.preventDefault(),n=i.currentTarget.querySelector("input").value,n.trim()!==""&&(f.style.display="block",h(n).then(t=>{t.length===0?(d.show({title:"!",message:"Sorry, there are no images matching your search query. Please try again!",color:"#EF4040",messageColor:"#fff",titleColor:"#fff",position:"topRight"}),u.innerHTML="",l.reset()):(u.innerHTML=t.map(m).join(""),c=1,new p(".card a",{captionsData:"title"}).refresh(),l.reset())}).catch(t=>{d.show({title:"!",message:`Error: ${t.message}`,color:"#EF4040",messageColor:"#fff",titleColor:"#fff",position:"topRight"})}).finally(()=>{f.style.display="none"}))});y.addEventListener("click",async i=>{c=c+1;try{const t=await h(n,b,c);u.innerHTML+=t.map(m).join(""),new p(".card a",{captionsData:"title"}).refresh()}catch(t){console.error(`Error loading more images: ${t.message}`)}});
+    </li>`}async function g(s,e,r){const i=s.split(" ").join("+"),t=y.create({baseURL:"https://pixabay.com/api/",params:{q:i,image_type:"photo",orientation:"horizontal",safesearch:"true",per_page:e,page:r,key:"42649910-6a5238a097d86367028b0f975"}});try{const o=await t.get();if(o.status!==200)throw new Error(`${o.status}`);return o.data.hits}catch(o){throw new Error(`Failed to fetch data: ${o.message}`)}}const d=document.querySelector("form");let n;const f=document.querySelector("ul#image-list"),p=document.querySelector(".loader");window.getButtonMore=document.querySelector(".button-more");const l=15;let c=1;d.addEventListener("submit",s=>{s.preventDefault(),n=s.currentTarget.querySelector("input").value,n.trim()!==""&&(p.style.display="block",g(n,l,1).then(e=>{e.length===0?(u.show({title:"!",message:"Sorry, there are no images matching your search query. Please try again!",color:"#EF4040",messageColor:"#fff",titleColor:"#fff",position:"topRight"}),f.innerHTML="",d.reset()):(f.innerHTML=e.map(h).join(""),c=1,new m(".card a",{captionsData:"title"}).refresh(),d.reset(),getButtonMore.classList.remove("is-hidden"))}).catch(e=>{u.show({title:"!",message:`Error: ${e.message}`,color:"#EF4040",messageColor:"#fff",titleColor:"#fff",position:"topRight"})}).finally(()=>{p.style.display="none"})),getButtonMore.classList.add("is-hidden")});getButtonMore.addEventListener("click",async s=>{c++;try{const e=await g(n,l,c);f.innerHTML+=e.map(h).join(""),new m(".card a",{captionsData:"title"}).refresh(),L(e.length)}catch(e){console.error(`Error loading more images: ${e.message}`)}});function L(s){const e=c*l;s<l||e>=totalHits?(u.show({title:"!",message:"We're sorry, but you've reached the end of search results.",color:"#EF4040",messageColor:"#fff",titleColor:"#fff",position:"topRight"}),getButtonMore.classList.add("is-hidden")):getButtonMore.classList.remove("is-hidden")}
 //# sourceMappingURL=commonHelpers.js.map
