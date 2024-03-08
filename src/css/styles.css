@@ -142,6 +142,8 @@
   justify-content: center;
 }
 .button-more {
+  margin-top: 32px;
+  margin-bottom: 32px;
   width: 120px;
   height: 40px;
   border-radius: 8px;
@@ -157,4 +159,7 @@
 .button-more:hover,
 .button-more:focus {
   background-color: #6c8cff;
+}
+.is-hidden {
+  display: none;
 }
