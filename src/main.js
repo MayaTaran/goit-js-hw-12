@@ -86,9 +86,10 @@ getButtonMore.addEventListener('click', async (event) => {
     const lightbox = new SimpleLightbox('.card a', {
       captionsData: "title"
     });
-    
+      scrollPageDown();
     lightbox.refresh();
-     updateButtonVisibility(additionalImages.length);
+    updateButtonVisibility(additionalImages.length);
+  
   } catch (error) {
     console.error(`Error loading more images: ${error.message}`);
   }
@@ -103,9 +104,24 @@ function updateButtonVisibility(imagesCount) {
             messageColor: "#fff",
             titleColor: "#fff",
             position: 'topRight'
-        });
-        getButtonMore.classList.add('is-hidden');
+        });    
+      getButtonMore.classList.add('is-hidden');
+    
     } else {
-        getButtonMore.classList.remove('is-hidden');
+      getButtonMore.classList.remove('is-hidden');
+    
     }
+}
+function scrollPageDown() {
+  const firstCard = document.querySelector(".gallery .card");
+  // console.log(firstCard);
+  if (firstCard) {
+    const rect = firstCard.getBoundingClientRect();
+    const scrollValue = rect.height * 2;
+       window.scrollBy({
+  top: scrollValue,
+  left: 0,
+  behavior: "smooth",
+});
+  }
 }
