@@ -75,28 +75,28 @@ getForm.addEventListener("submit", (event) => {
 
    getButtonMore.classList.add('is-hidden');
 });
-length
+
 getButtonMore.addEventListener('click', async (event) => {
   // event.preventDefault();
   currentPage++;
   try {
     const additionalImages = await fetchData(inputWord, pageQuantity, currentPage);
     getList.innerHTML += additionalImages.map(createCard).join('');
-
+const arrayLength = additionalImages.length;
     const lightbox = new SimpleLightbox('.card a', {
       captionsData: "title"
     });
       scrollPageDown();
     lightbox.refresh();
-    updateButtonVisibility(additionalImages.length);
+    updateButtonVisibility(arrayLength);
   
   } catch (error) {
     console.error(`Error loading more images: ${error.message}`);
   }
 });
-function updateButtonVisibility(imagesCount) {
+function updateButtonVisibility(arrayLength) {
     const totalImages = currentPage * pageQuantity;
-    if (imagesCount < pageQuantity || totalImages >= totalHits) {
+    if (arrayLength < pageQuantity || totalImages >= totalHits) {
         iziToast.show({
             title: '!',
             message: "We're sorry, but you've reached the end of search results.",
