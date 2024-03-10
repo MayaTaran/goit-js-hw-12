@@ -20,6 +20,7 @@ window.getButtonMore = document.querySelector('.button-more');
 // console.log(getButtonMore);
 const pageQuantity = 15;
 let currentPage = 1;
+let totalHits;
 
 getForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -55,7 +56,11 @@ getForm.addEventListener("submit", (event) => {
           getForm.reset();
            getButtonMore.classList.remove('is-hidden');
         }
-
+if (images.length < pageQuantity) {
+            getButtonMore.classList.add('is-hidden');
+          } else {
+            getButtonMore.classList.remove('is-hidden');
+          }
       })
       .catch(error => {
         iziToast.show({
@@ -70,10 +75,10 @@ getForm.addEventListener("submit", (event) => {
       .finally(() => {
         loader.style.display = 'none';
       });
+  
    
   }
 
-   getButtonMore.classList.add('is-hidden');
 });
 
 getButtonMore.addEventListener('click', async (event) => {
